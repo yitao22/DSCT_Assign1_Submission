@@ -2,7 +2,7 @@
 #DONE BY: ZHENG YI TAO
 
 # Importing csv file with ONLY the columns required.
-surveyData <- read.csv("C:\\Users\\yitao22\\Desktop\\Assignment 1\\Survey_Data.csv", header = TRUE, sep=";")
+surveyData <- read.csv("D:\\Assignment 1\\Survey_Data.csv", header = TRUE, sep=";")
 
 # ***Question 1***
 # Yes, There are missing values in the dataset. 
@@ -91,14 +91,21 @@ aggregate(REALINC ~ HAPPY, fSurveyData, median)
 aggregate(REALINC ~ HEALTH, fSurveyData, median)
 
 #***Question 10***
-plot(surveyDataNA$HAPPY,surveyDataNA$MARITAL)
+#Summarising Linear Model
 model <- lm(HAPPY ~ MARITAL, data=surveyDataNA)
 abline(model, col="red")
 
 summary(model)
 
+#Build Bar Plot for comparison
+HapMarTbl <- table(fSurveyData$HAPPY, fSurveyData$MARITAL)
+barplot(prop.table(HapMarTbl,2), beside = T, col=c("yellow", "blue", "red"), 
+        main = "Happinesss depend on Marital status?",
+        xlab = "Marital Status", ylab = "Count of Marital status and happiness")
+legend("topright", fill = c("yellow", "blue", "red"), rownames(catAgeHap), cex = 0.5)
+
 #***Question 11***
-surveyDataRACE <- read.csv("C:\\Users\\yitao22\\Desktop\\Assignment 1\\Survey_Data_RACE.csv", header = TRUE, sep=",")
+surveyDataRACE <- read.csv("D:\\Assignment 1\\Survey_Data_RACE.csv", header = TRUE, sep=",")
 
 raceFactor <- as.factor(surveyDataRACE[,1])
 levels(raceFactor) = c("White", "Black", "Other")
